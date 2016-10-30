@@ -9,7 +9,6 @@ function autoload($className)
             require_once $path;
         }
     } else {
-
         //system path
         $path=SYSTEM.'Core/'.$className.'.php';
         if(file_exists($path) && is_file($path)){

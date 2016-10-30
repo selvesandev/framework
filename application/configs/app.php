@@ -18,12 +18,11 @@ switch (ENV) {
         define('HTTP', "http://localhost:{$serverPort}/framework/");
         define('ROOT', $_SERVER['DOCUMENT_ROOT'] . 'framework/');
         define('APP_PATH',ROOT.'application/');
-        define('CONFIG_PATH',ROOT.'configs/');
+        define('CONFIG_PATH',APP_PATH.'configs/');
         define('PUBLIC_PATH',HTTP.'public/');
         define('SYSTEM',ROOT.'system/');
-        define('HELPER_PATH',ROOT.'Helpers/');
+        define('HELPER_PATH',APP_PATH.'Helpers/');
         error_reporting(E_ALL & ~E_NOTICE);
-
         break;
     }
     case "pro": {

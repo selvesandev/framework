@@ -2,6 +2,7 @@
 
 class DemoController
 {
+
     public function __construct()
     {
 
@@ -9,13 +10,14 @@ class DemoController
 
     public function index()
     {
-        echo "You are at index successfully";
+        $data=['name'=>'ram','age'=>20,'gender'=>'male'];
+        return view('home',$data);
     }
 
     public function about($arguments)
     {
         $data=['a'=>$arguments->a,'b'=>$arguments->b,'msg'=>'MVC Framework that will keep progressing &'];
-        return view('contact.php',$data)->testChain();
+        return view('contact',$data)->testChain();
     }
 
 

@@ -12,7 +12,7 @@ class Render{
             $page = substr($loadViewPath, 0, strlen($loadViewPath) - 4);
         }
 
-        $this->loadViewPath = VIEW . $loadViewPath;
+        $this->loadViewPath = VIEW . $loadViewPath.'.php';
         $this->page=$page;
         $this->data=$data;
         $this->renderView();
