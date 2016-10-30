@@ -5,9 +5,13 @@ require_once '../configs/app.php';
 
 require_once SYSTEM.'initialize.php';
 
-require_once APP_PATH.'routes.php';
 
-$app=new App();
+/**
+ * Bootstrap Prepare the application components
+ */
+$app=new Bootstrap();
+
+require_once APP_PATH.'routes.php';
 
 
 

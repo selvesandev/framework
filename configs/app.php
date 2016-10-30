@@ -21,6 +21,7 @@ switch (ENV) {
         define('CONFIG_PATH',ROOT.'configs/');
         define('PUBLIC_PATH',HTTP.'public/');
         define('SYSTEM',ROOT.'system/');
+        define('HELPER_PATH',ROOT.'Helpers/');
         error_reporting(E_ALL & ~E_NOTICE);
 
         break;
