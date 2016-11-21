@@ -28,7 +28,7 @@ switch (ENV) {
         }
 
         if($http=="localhost"){
-            $appHTTP.="/".$rootDir;
+            $appHTTP.="/".$rootDir.'/Public';
         }
         define('APP_ROOT',$rootDir);
         define('HTTP',$appHTTP.'/');

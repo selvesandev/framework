@@ -4,10 +4,49 @@ class Route
 {
     private static $namespace = null;
     private static $a=0;
+    private static $routeName=null;
+    private static $controllerMethod=null;
+
+    
 
     public function noRouteException(){
 
     }
+
+
+    
+    /**
+     * Checks whether the comming request is either get or post forwards them for necessary processing..
+     * @return array
+     */
+    public static  function __callStatic($funcName,$args){
+        try{
+        if(empty($funcName) || empty($args)) throw new Exception('Invalid Exception ');
+            self::$namespace=null;
+            if(isset($args[2])){
+                self::$namespace=rtrim(ltrim($args[2],''),'/');
+            }
+
+            if(!isset($args[0])) throw new Exception('No Route Defined');
+            self::$routeName=rtrim(ltrim($args[0],'/'),'/');
+
+            if(!isset($args[1])) throw new Exception('Controller method not found');
+            self::$controllerMethod=$args[1];
+
+
+            if($funcName=='get' && $_SERVER['REQUEST_METHOD']=="GET"){
+                self::processGetRequest(); 
+            }else if($funcName=="post" && $_SERVER['REQUEST_METHOD']=="POST"){
+                self::processPostRequest();
+            }            
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+
+    }
+
+
+
 
     /**
      * Prepares the url string for further route processing
@@ -32,28 +71,18 @@ class Route
     }
 
 
-
-
-    public static function get($route = '', $controllerAction = '', $namespace = '')
+    
+    private static function processGetRequest()
     {
         try {
-            if (empty($route)) {
-                throw new Exception('Route Arg 1 seems empty');
-            }
-            if (empty($controllerAction)) {
-                throw new Exception('Route Arg 2 seem empty');
-            }
-            self::$namespace=null;
-            if (!empty($namespace)) {
-                self::$namespace = rtrim(ltrim($namespace, '/'), '/');
-            }
-
             $routeParamUrl = array_filter(self::initiate());
+            
             $argVariable = [];
             $hasArg = false;
-            $route = rtrim(ltrim($route, '/'), '/');
+           
 
-            $route = explode('/', $route);
+            $route = explode('/', self::$routeName);
+
 
             foreach ($route as $routeArgs) {
                 if (preg_match('/^\{{1}[a-z0-9]*\}{1}$/', $routeArgs, $match)) {
@@ -72,7 +101,7 @@ class Route
             }
 
             if ($route == $routeParamUrl) {
-                $controllerAction = explode('@', $controllerAction);
+                $controllerAction = explode('@', self::$controllerMethod);
 
                 if (count($controllerAction) !== 2) return false;
 
@@ -85,7 +114,6 @@ class Route
                 if (!method_exists($ctrlObj, $action)) {
                     throw new Exception('Controller\'s method not found ' . $controller . '@' . $action);
                 }
-
 
                 if ($hasArg == true) {
                     $stdClass = new stdClass();
@@ -123,11 +151,10 @@ class Route
     }
 
 
-    public static function post($routeName)
+    public static function processPostRequest()
     {   
-        if(empty($_POST) || $_SERVER['REQUEST_METHOD']!=="POST")
-            return false;
-        
+
     }
+    
 
 }
