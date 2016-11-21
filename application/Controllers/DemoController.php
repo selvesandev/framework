@@ -10,7 +10,7 @@ class DemoController
 
     public function index()
     {
-        $data=['name'=>'ram','age'=>20,'gender'=>'male'];
+        $data=['name'=>'ram','age'=>20,'gender'=>'male','title'=>'Welcome'];
         return view('home',$data);
     }
 

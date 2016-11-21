@@ -10,11 +10,10 @@ function autoload($className)
         }
     } else {
         //system path
-        $path=SYSTEM.'Core/'.$className.'.php';
-        if(file_exists($path) && is_file($path)){
+        $path = SYSTEM . 'Core/' . $className . '.php';
+        if (file_exists($path) && is_file($path)) {
             require_once $path;
         }
-
     }
 }
 
