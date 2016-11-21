@@ -12,7 +12,6 @@ class Render{
         if (strpos($loadViewPath, '.php')) {
             $loadViewPath = substr($loadViewPath, 0, strlen($loadViewPath) - 4);
         }
-
         $this->loadViewPath = VIEW . $loadViewPath.'.php';
         $this->data=$data;
         $this->renderView();

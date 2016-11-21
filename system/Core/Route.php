@@ -3,6 +3,7 @@
 class Route
 {
     private static $namespace = null;
+    private static $a=0;
 
     public function noRouteException(){
 
@@ -42,10 +43,10 @@ class Route
             if (empty($controllerAction)) {
                 throw new Exception('Route Arg 2 seem empty');
             }
+            self::$namespace=null;
             if (!empty($namespace)) {
                 self::$namespace = rtrim(ltrim($namespace, '/'), '/');
             }
-
 
             $routeParamUrl = array_filter(self::initiate());
             $argVariable = [];
@@ -72,10 +73,12 @@ class Route
 
             if ($route == $routeParamUrl) {
                 $controllerAction = explode('@', $controllerAction);
+
                 if (count($controllerAction) !== 2) return false;
 
                 $controller = $controllerAction[0];
                 $action = $controllerAction[1];
+
 
                 $ctrlObj = self::controllerInstance($controller);
 
@@ -96,7 +99,6 @@ class Route
                 return true;
             }
 
-
         } catch (Exception $e) {
             die($e->getMessage());
         }
@@ -111,6 +113,7 @@ class Route
         else
             $controllerPath = APP_PATH . 'Controllers/' . self::$namespace . '/' . $controller . '.php';
 
+
         if (file_exists($controllerPath) && is_file($controllerPath)) {
             require_once $controllerPath;
             return new $controller();
@@ -120,9 +123,11 @@ class Route
     }
 
 
-    public static function post()
-    {
-
+    public static function post($routeName)
+    {   
+        if(empty($_POST) || $_SERVER['REQUEST_METHOD']!=="POST")
+            return false;
+        
     }
 
 }

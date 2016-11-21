@@ -10,6 +10,11 @@
 
 <?php echo $msg ?>
 
+<form method="post" action="<?= URL::to('contact')?>">
+	<input type="text" name="name">
+	<input type="password" name="password">
+	<input type="submit" value="GO">
+</form>
 
 </body>
 </html>
