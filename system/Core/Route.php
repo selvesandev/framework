@@ -89,7 +89,6 @@ class Route
                     foreach ($argValue as $key => $value) {
                         $stdClass->$key = $value;
                     }
-
                     $ctrlObj->$action($stdClass);
                 } else {
                     $ctrlObj->$action();

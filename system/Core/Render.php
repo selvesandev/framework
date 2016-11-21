@@ -8,12 +8,12 @@ class Render{
 
     public function __construct($loadViewPath,$data)
     {
+
         if (strpos($loadViewPath, '.php')) {
-            $page = substr($loadViewPath, 0, strlen($loadViewPath) - 4);
+            $loadViewPath = substr($loadViewPath, 0, strlen($loadViewPath) - 4);
         }
 
         $this->loadViewPath = VIEW . $loadViewPath.'.php';
-        $this->page=$page;
         $this->data=$data;
         $this->renderView();
     }
